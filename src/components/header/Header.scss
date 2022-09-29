@@ -1,0 +1,10 @@
+@import '../../assets/styles/variables.scss';
+
+.header__container {
+    @include flexbox-center;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    border: 3px solid #f8ab37;
+    height: 100px;
+}

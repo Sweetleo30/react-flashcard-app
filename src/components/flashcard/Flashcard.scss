@@ -1,0 +1,52 @@
+@import '../../assets/styles/variables.scss';
+
+.flashcard__container {
+    @include flexbox-center;
+    flex-wrap: wrap;
+    padding: 100px 10px;
+
+}
+
+.flashcard {
+    @include flexbox-center;
+    flex-direction: column;
+    margin: 10px;
+    width: 180px;
+    height: 230px;
+    background-color: $bg-card;
+    color: $cardColor;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.flashcard-word {
+    font-size: 26px;
+    padding: 5px;
+}
+
+.flashcard-transcription {
+    padding: 5px;
+    margin-top: 10px;
+    color: rgb(172, 172, 172);
+}
+
+.flashcard-btn {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 10px 25px;
+    margin: 40px 10px 0 10px;
+    min-width: 2.5rem;
+    font-size: 16px;
+    color: $cardColor;
+    background-color: $bt-green;
+    cursor: pointer;
+}
+
+.translation-btn {
+    margin: 40px 10px 0 10px;
+    padding: 8px 0;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    color: #da2c4d;
+}
