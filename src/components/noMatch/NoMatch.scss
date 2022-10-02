@@ -1,0 +1,58 @@
+@import '../../assets/styles/variables.scss';
+
+
+.page {
+    &__container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        min-height: 80vh;
+        padding: 130px 10px 40px 10px;
+        border-radius: 6px;
+        color: $light-dark;
+    }
+
+    &__animation {
+        // transform: rotate(677deg);
+        // animation: rotate-data-v-86db7d6c 1.5s ease;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: 152px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: 2.4px;
+        text-align: center;
+        padding: 10px 10px 0;
+    }
+
+    &__text {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    &__btn {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 12px 35px;
+        height: 50px;
+        border-radius: 25px;
+        border: none;
+        background-image: linear-gradient(90deg, #ff7e24, #ffad38);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 12px 12px 0 rgba(238, 172, 48, 0.7), 0 6px 6px 0 rgba(230, 216, 178, 0.8), 0 2px 2px 0 #e3e8eb;
+        transition: box-shadow .3s ease-out;
+        color: $mainColor;
+    }
+}

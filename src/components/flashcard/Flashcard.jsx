@@ -19,3 +19,6 @@ export function Flashcard(props) {
         </div >
     );
 }
+
+
+

@@ -3,7 +3,6 @@
 // слайдер
 .flashcard-slider {
     @include flexbox-center;
-    flex-wrap: wrap;
 }
 
 .prev-btn,

@@ -2,8 +2,8 @@
 
 .flashcard__container {
     @include flexbox-center;
-    flex-wrap: wrap;
-    padding: 100px 10px;
+    height: 700px;
+    padding: 200px 10px 100px 10px;
 
 }
 
@@ -28,7 +28,7 @@
 .flashcard-transcription {
     padding: 5px;
     margin-top: 10px;
-    color: rgb(172, 172, 172);
+    color: $light-dark;
 }
 
 .flashcard-btn {
