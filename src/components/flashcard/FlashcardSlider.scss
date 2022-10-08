@@ -2,6 +2,12 @@
 
 // слайдер
 .flashcard-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.flashcard-slider__main {
     @include flexbox-center;
 }
 
@@ -14,4 +20,23 @@
     font-size: 16px;
     cursor: pointer;
     @include button-bg(rgb(117, 115, 115))
+}
+
+.words-counter {
+    @include flexbox-center;
+    // flex-direction: column;
+    margin: 20px;
+    width: 180px;
+    height: 60px;
+    background-color: $bg-card;
+    color: $light-dark;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.words-counter span {
+    margin-left: 6px;
+    font-weight: 600;
+    color: $bt-green;
 }

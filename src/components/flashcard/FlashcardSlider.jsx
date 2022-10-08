@@ -15,6 +15,7 @@ export function FlashcardSlider(props) {
 
     const words = props.words;
     const [count, setCount] = useState(props.index);
+    const [number, setNumber] = useState(0);
 
     const handlePrev = () => {
         if (count > 0) {
@@ -32,16 +33,25 @@ export function FlashcardSlider(props) {
         };
     }
 
+    const addNumber = () => {
+        setNumber(number + 1);
+    }
+
     return (
         <div className="flashcard-slider">
-            <button className="prev-btn" onClick={handlePrev}><FontAwesomeIcon icon={faChevronLeft} /></button>
-            <Flashcard
-                key={words[count].id}
-                word={words[count].english}
-                transcription={words[count].transcription}
-                translation={words[count].russian}>
-            </Flashcard>
-            <button className="next-btn" onClick={handleNext}><FontAwesomeIcon icon={faChevronRight} /></button>
+            <div className="flashcard-slider__main">
+                <button className="prev-btn" onClick={handlePrev}><FontAwesomeIcon icon={faChevronLeft} /></button>
+                <Flashcard
+                    isEdited={false}
+                    key={words[count].id}
+                    word={words[count].english}
+                    transcription={words[count].transcription}
+                    translation={words[count].russian}
+                    addNumber={addNumber}>
+                </Flashcard>
+                <button className="next-btn" onClick={handleNext}><FontAwesomeIcon icon={faChevronRight} /></button>
+            </div>
+            <div className="words-counter">Изучено слов:<span>{number}</span></div>
         </div>
     );
 }

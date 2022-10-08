@@ -7,6 +7,7 @@ export function Flashcard(props) {
 
     const handleShow = () => {
         setChecked(!isChecked);
+        props.addNumber();
     }
 
     return (
