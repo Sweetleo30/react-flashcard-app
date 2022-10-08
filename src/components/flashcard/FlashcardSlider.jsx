@@ -42,7 +42,7 @@ export function FlashcardSlider(props) {
             <div className="flashcard-slider__main">
                 <button className="prev-btn" onClick={handlePrev}><FontAwesomeIcon icon={faChevronLeft} /></button>
                 <Flashcard
-                    isEdited={false}
+
                     key={words[count].id}
                     word={words[count].english}
                     transcription={words[count].transcription}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Flashcard.scss';
 
 export function Flashcard(props) {
@@ -10,11 +10,16 @@ export function Flashcard(props) {
         props.addNumber();
     }
 
+    const mainRef = useRef(null);
+    useEffect(() => {
+        mainRef.current.focus();
+    }, []);
+
     return (
         <div className="flashcard">
             <span className="flashcard-word">{props.word}</span>
             <span className="flashcard-transcription">{props.transcription}</span>
-            <button className={isChecked ? "translation-btn" : "flashcard-btn"} onClick={handleShow}>
+            <button disabled={isChecked ? true : false} className={isChecked ? "translation-btn" : "flashcard-btn"} ref={mainRef} onClick={handleShow}>
                 {isChecked ? props.translation : "Проверить"}
             </button>
         </div >
