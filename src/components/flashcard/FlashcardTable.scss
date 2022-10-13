@@ -19,21 +19,31 @@ th {
 }
 
 td {
+    position: relative;
     padding: 6px 10px;
     background-color: $bg-table-td;
     border-radius: 8px;
+
+    &:nth-child(n+2) {
+        min-width: 120px;
+    }
 }
+
 
 .bt-save {
     text-transform: uppercase;
     @include button;
     @include button-bg($bt-green);
+
+    &:disabled {
+        border: 2px solid $dark;
+        color: $dark;
+    }
 }
 
 .bt-edit {
     @include button;
     @include button-bg($bt-orange);
-
 }
 
 .bt-delete {
@@ -52,6 +62,7 @@ td {
     color: $mainColor;
     background-color: #5854543b;
     border-radius: 10px;
+    margin: 20px 0 10px;
     padding: 10px;
     font-size: 16px;
     text-align: center;
@@ -60,5 +71,26 @@ td {
         outline: none;
         border: 1px solid $bt-green;
         box-shadow: 0 0 10px $bt-green;
+    }
+}
+
+.has-error {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 14px;
+    text-align: center;
+    color: $red;
+}
+
+.form-control_error {
+    border: 1px solid $red;
+    box-shadow: 0 0 10px $red;
+
+    &:focus {
+        outline: none;
+        border: 1px solid $red;
+        box-shadow: 0 0 10px $red;
     }
 }

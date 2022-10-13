@@ -19,7 +19,7 @@ export function Flashcard(props) {
         <div className="flashcard">
             <span className="flashcard-word">{props.word}</span>
             <span className="flashcard-transcription">{props.transcription}</span>
-            <button disabled={isChecked ? true : false} className={isChecked ? "translation-btn" : "flashcard-btn"} ref={mainRef} onClick={handleShow}>
+            <button disabled={isChecked} className={isChecked ? "translation-btn" : "flashcard-btn"} ref={mainRef} onClick={handleShow}>
                 {isChecked ? props.translation : "Проверить"}
             </button>
         </div >
