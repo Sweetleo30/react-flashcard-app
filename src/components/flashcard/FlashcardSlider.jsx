@@ -6,7 +6,6 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import './FlashcardSlider.scss';
 
-
 export function FlashcardSlider(props) {
 
     FlashcardSlider.defaultProps = {
@@ -42,7 +41,6 @@ export function FlashcardSlider(props) {
             <div className="flashcard-slider__main">
                 <button className="prev-btn" onClick={handlePrev}><FontAwesomeIcon icon={faChevronLeft} /></button>
                 <Flashcard
-
                     key={words[count].id}
                     word={words[count].english}
                     transcription={words[count].transcription}

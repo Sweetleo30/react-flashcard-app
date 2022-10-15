@@ -1,5 +1,6 @@
 @import '../../assets/styles/variables.scss';
 
+
 .flashcard-table__container {
     @include flexbox-center;
     padding: 130px 10px 40px 10px;
@@ -28,7 +29,6 @@ td {
         min-width: 120px;
     }
 }
-
 
 .bt-save {
     text-transform: uppercase;
