@@ -11,9 +11,17 @@ export function TableRow(props) {
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
     const translation = useInput(props.translation, { isEmpty: true, minLength: 2 });
     const [isEdited, setEdited] = useState(props.isEdited);
+    const valid = (word.inputValid && transcription.inputValid && translation.inputValid)
 
     const handleChange = () => {
         setEdited(!isEdited);
+    }
+
+    const handleSave = () => {
+        if (valid) {
+            console.log(word.value, transcription.value, translation.value);
+            setEdited(!isEdited);
+        }
     }
 
     return (
@@ -32,9 +40,9 @@ export function TableRow(props) {
                 {isEdited ? <input onChange={e => translation.onChange(e)} onBlur={e => translation.onBlur(e)} value={translation.value} type="text" className={"form-control " + (!translation.inputValid ? "form-control_error" : "")} name="translation" /> : translation.value}
             </td>
             <td>
-                {isEdited ? <button disabled={!word.inputValid || !transcription.inputValid || !translation.inputValid} className="bt-save" onClick={handleChange}>SAVE</button> :
+                {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleSave}>SAVE</button> :
                     <button className="bt-edit" onClick={handleChange}><FontAwesomeIcon icon={faEdit} /></button>}
-                {isEdited ? <button className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
+                {isEdited ? <button disabled={!valid} className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
                     <button className="bt-delete"><FontAwesomeIcon icon={faTrashCan} /></button>}
             </td>
         </tr>

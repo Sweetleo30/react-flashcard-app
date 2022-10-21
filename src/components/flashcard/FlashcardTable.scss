@@ -54,6 +54,11 @@ td {
 .bt-close {
     @include button;
     @include button-bg($red);
+
+    &:disabled {
+        border: 2px solid $dark;
+        color: $dark;
+    }
 }
 
 .form-control {
