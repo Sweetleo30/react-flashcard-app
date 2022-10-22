@@ -12,6 +12,8 @@ import { NoMatch } from '../noMatch/NoMatch';
 import { FlashcardTable } from '../flashcard/FlashcardTable';
 import { FlashcardContent } from '../flashcard/FlashcardContent';
 
+// import WordContext from '../context/Context';
+
 
 function App() {
     return (

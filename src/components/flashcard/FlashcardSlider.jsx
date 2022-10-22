@@ -4,16 +4,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
+import { useContext } from 'react';
+import WordContext from '../context/Context';
+
 import './FlashcardSlider.scss';
 
-export function FlashcardSlider(props) {
+export function FlashcardSlider() {
 
-    FlashcardSlider.defaultProps = {
-        index: 0
-    };
+    const { state, setState } = useContext(WordContext);
 
-    const words = props.words;
-    const [count, setCount] = useState(props.index);
+    // FlashcardSlider.defaultProps = {
+    //     index: 0
+    // };
+
+    const words = state;
+    const [count, setCount] = useState(0);
     const [number, setNumber] = useState(0);
 
     const handlePrev = () => {

@@ -1,10 +1,19 @@
-import words from '../../data/data.json';
+// import words from '../../data/data.json';
 import { TableRow } from '../flashcard/TableRow';
+import WordContext from '../context/Context';
+// import { useContext } from 'react';
+
+import { useContext } from 'react';
 
 import './FlashcardTable.scss';
 
 export function FlashcardTable() {
+
+    const { state, setState } = useContext(WordContext);
+    const words = state;
+
     return (
+
         <div className="flashcard-table__container">
             <table className="table">
                 <thead>

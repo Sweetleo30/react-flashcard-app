@@ -1,3 +1,4 @@
+// import { useState, useContext } from 'react';
 import { useState } from 'react';
 import { useInput } from '../hooks/useInput';
 
@@ -6,7 +7,12 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+// import WordContext from '../context/Context';
+
 export function TableRow(props) {
+
+    // const {state, setState } = useContext(WordContext);
+
     const word = useInput(props.word, { isEmpty: true, minLength: 2 });
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
     const translation = useInput(props.translation, { isEmpty: true, minLength: 2 });
