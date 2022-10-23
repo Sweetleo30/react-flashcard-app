@@ -11,7 +11,11 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function TableRow(props) {
 
-    // const { state, setState } = useContext(WordContext);
+    // const [state, setState] = useState({
+    //     word: props.word,
+    //     transcription: props.transcription,
+    //     translation: props.translation,
+    // });
 
     const word = useInput(props.word, { isEmpty: true, minLength: 2 });
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
@@ -27,8 +31,18 @@ export function TableRow(props) {
         if (valid) {
             console.log(word.value, transcription.value, translation.value);
             setEdited(!isEdited);
+
+            // fetch(`/api/words/${props.key}/update`, { metod: 'POST', body: JSON.stringify({ state }) })
+            //     .then((response) => response.json())
+            //     .then((response) => setState(response))
         }
     }
+
+    // const handleDelete = () => {
+    //     fetch(`/api/words/${props.key}/delete`, { metod: 'POST' })
+    //         .then((response) => response.json())
+    //         .then((response) => setState(response))
+    // }
 
     return (
         <tr>
@@ -49,7 +63,7 @@ export function TableRow(props) {
                 {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleSave}>SAVE</button> :
                     <button className="bt-edit" onClick={handleChange}><FontAwesomeIcon icon={faEdit} /></button>}
                 {isEdited ? <button disabled={!valid} className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
-                    <button className="bt-delete"><FontAwesomeIcon icon={faTrashCan} /></button>}
+                    <button className="bt-delete" ><FontAwesomeIcon icon={faTrashCan} /></button>}
             </td>
         </tr>
     );

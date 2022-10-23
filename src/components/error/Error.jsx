@@ -1,5 +1,3 @@
-// import { Link } from "react-router-dom";
-// import tumbleweed from "../../assets/img/tumbleweed.png";
 import './Error.scss';
 
 export function Error() {

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { WordContext } from '../context/Context';
+import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
+import { Error } from '../error/Error';
 
 import './FlashcardSlider.scss';
 
@@ -25,7 +27,7 @@ export function FlashcardSlider() {
         } else {
             setCount(words.length - 1)
         };
-    }
+    };
 
     const handleNext = () => {
         if (count === words.length - 1) {
@@ -33,10 +35,22 @@ export function FlashcardSlider() {
         } else {
             setCount(count + 1)
         };
-    }
+    };
 
     const addNumber = () => {
         setNumber(number + 1);
+    };
+
+    if (state.isLoading) {
+        return (
+            <LoadingIndicator />
+        )
+    }
+
+    if (state.error) {
+        return (
+            <Error />
+        )
     }
 
     return (
