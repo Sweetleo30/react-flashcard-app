@@ -1,11 +1,13 @@
 @import '../../assets/styles/variables.scss';
 
 // слайдер
+
 .flashcard-slider {
-    display: flex;
+    @include flexbox-center;
     flex-direction: column;
-    align-items: center
+    margin-top: 200px
 }
+
 
 .flashcard-slider__main {
     @include flexbox-center;
@@ -24,7 +26,6 @@
 
 .words-counter {
     @include flexbox-center;
-    // flex-direction: column;
     margin: 20px;
     width: 180px;
     height: 60px;

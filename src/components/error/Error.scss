@@ -1,0 +1,19 @@
+@import '../../assets/styles/variables.scss';
+
+
+.error {
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 130px 10px 40px 10px;
+        border-radius: 6px;
+        color: $light-dark;
+    }
+
+    &__text {
+        font-size: 30px;
+        color: $light-dark;
+    }
+}

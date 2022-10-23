@@ -1,27 +1,19 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
-import WordContext from './components/context/Context';
-import words from '../src/data/data.json';
+import { WordContextProvider } from './components/context/Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function Main() {
-  const [state, setState] = useState(words);
-  // console.log(state);
-
-  return (
-    <React.StrictMode>
-      <WordContext.Provider value={{ state, setState }}>
-        <App />
-      </WordContext.Provider>
-    </React.StrictMode>
-  )
-}
 
 root.render(
-  <Main />
+  <React.StrictMode>
+    <WordContextProvider>
+      <App />
+    </WordContextProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -7,7 +7,7 @@ export function NoMatch() {
         <div className="page">
             <div className="page__container">
                 <div className="page__animation">
-                    <img src={tumbleweed} className="tumbleweed" />
+                    <img src={tumbleweed} className="tumbleweed" alt="tumbleweed" />
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="173" height="27" viewBox="0 0 173 27"><defs><radialGradient id="a" r="22.258%" fx="50%" fy="50%" gradientTransform="matrix(0 1 -1.41612 0 1.208 0)">
                             <stop offset="0%" stop-color="#973C00"></stop>

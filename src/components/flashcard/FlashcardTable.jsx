@@ -1,19 +1,29 @@
-// import words from '../../data/data.json';
 import { TableRow } from '../flashcard/TableRow';
-import WordContext from '../context/Context';
-// import { useContext } from 'react';
-
+import { WordContext } from '../context/Context';
 import { useContext } from 'react';
-
+import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
+import { Error } from '../error/Error';
+// import { NoMatch } from '../noMatch/NoMatch';
 import './FlashcardTable.scss';
 
 export function FlashcardTable() {
 
     const { state, setState } = useContext(WordContext);
-    const words = state;
+    const words = state.data;
+
+    if (state.isLoading) {
+        return (
+            <LoadingIndicator />
+        )
+    }
+
+    if (state.error) {
+        return (
+            <Error />
+        )
+    }
 
     return (
-
         <div className="flashcard-table__container">
             <table className="table">
                 <thead>

@@ -11,7 +11,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function TableRow(props) {
 
-    // const {state, setState } = useContext(WordContext);
+    // const { state, setState } = useContext(WordContext);
 
     const word = useInput(props.word, { isEmpty: true, minLength: 2 });
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
