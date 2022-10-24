@@ -1,5 +1,5 @@
-// import { useState, useContext } from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+// import { useState } from 'react';
 import { useInput } from '../hooks/useInput';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +7,11 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-// import WordContext from '../context/Context';
+import { WordContext } from '../context/Context';
 
 export function TableRow(props) {
+
+    const { data, setData } = useContext(WordContext);
 
     // const [state, setState] = useState({
     //     word: props.word,
@@ -22,6 +24,7 @@ export function TableRow(props) {
     const translation = useInput(props.translation, { isEmpty: true, minLength: 2 });
     const [isEdited, setEdited] = useState(props.isEdited);
     const valid = (word.inputValid && transcription.inputValid && translation.inputValid)
+
 
     const handleChange = () => {
         setEdited(!isEdited);
@@ -38,11 +41,34 @@ export function TableRow(props) {
         }
     }
 
-    // const handleDelete = () => {
-    //     fetch(`/api/words/${props.key}/delete`, { metod: 'POST' })
-    //         .then((response) => response.json())
-    //         .then((response) => setState(response))
-    // }
+    const handleDelete = async () => {
+        // fetch(`/api/words/${props.key}/delete`, { metod: 'POST' })
+        //     .then((response) => response.json())
+        //     .then((response) => setState(response))
+
+        // console.log(props.id);
+
+
+        let isDelete = window.confirm("Удалить это слово?");
+        if (isDelete) {
+            try {
+                const res = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${props.id}/delete`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                if (res.ok) {
+                    let words = data;
+                    let newState = words.filter(item => item.id !== props.id);
+                    setData(newState)
+                };
+            } catch (error) {
+                alert(`Ошибка соединения с сервером. ${error}`);
+            };
+        }
+
+    }
 
     return (
         <tr>
@@ -63,7 +89,7 @@ export function TableRow(props) {
                 {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleSave}>SAVE</button> :
                     <button className="bt-edit" onClick={handleChange}><FontAwesomeIcon icon={faEdit} /></button>}
                 {isEdited ? <button disabled={!valid} className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
-                    <button className="bt-delete" ><FontAwesomeIcon icon={faTrashCan} /></button>}
+                    <button className="bt-delete" onClick={handleDelete}><FontAwesomeIcon icon={faTrashCan} /></button>}
             </td>
         </tr>
     );

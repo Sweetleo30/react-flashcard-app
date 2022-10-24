@@ -4,11 +4,9 @@ const WordContext = React.createContext();
 
 function WordContextProvider(props) {
 
-    const [state, setState] = useState({
-        data: [],
-        isLoading: false,
-        error: null,
-    });
+    const [data, setData] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [isError, setError] = useState(null);
 
     useEffect(() => {
         fetch(`/api/words`)
@@ -20,21 +18,16 @@ function WordContextProvider(props) {
                 }
             })
             .then((response) => {
-                setState({
-                    data: response,
-                    isLoading: false,
-                })
+                setData(response);
+                setLoading(false);
             })
-            .catch(error => setState({ error, isLoading: false }));
+
+            .catch(error => { setError(error); setLoading(false) });
     }, [])
 
 
-    // function toggleTheme() {
-    //     setTheme(prevTheme => (prevTheme === "light" ? "dark" : "light"));
-    // }
-
     return (
-        <WordContext.Provider value={{ state, setState }}>
+        <WordContext.Provider value={{ data, setData, isLoading, setLoading, isError, setError }}>
             {props.children}
         </WordContext.Provider>
     );

@@ -11,13 +11,15 @@ import './FlashcardSlider.scss';
 
 export function FlashcardSlider() {
 
-    const { state, setState } = useContext(WordContext);
+    // data, setData, isLoading, setLoading, isError, setError
+
+    const { data, isLoading, isError } = useContext(WordContext);
 
     // FlashcardSlider.defaultProps = {
     //     index: 0
     // };
 
-    const words = state.data;
+    const words = data;
     const [count, setCount] = useState(0);
     const [number, setNumber] = useState(0);
 
@@ -41,13 +43,13 @@ export function FlashcardSlider() {
         setNumber(number + 1);
     };
 
-    if (state.isLoading) {
+    if (isLoading) {
         return (
             <LoadingIndicator />
         )
     }
 
-    if (state.error) {
+    if (isError) {
         return (
             <Error />
         )

@@ -8,16 +8,18 @@ import './FlashcardTable.scss';
 
 export function FlashcardTable() {
 
-    const { state, setState } = useContext(WordContext);
-    const words = state.data;
+    // data, setData, isLoading, setLoading, isError, setError
 
-    if (state.isLoading) {
+    const { data, isLoading, isError } = useContext(WordContext);
+    const words = data;
+
+    if (isLoading) {
         return (
             <LoadingIndicator />
         )
     }
 
-    if (state.error) {
+    if (isError) {
         return (
             <Error />
         )
