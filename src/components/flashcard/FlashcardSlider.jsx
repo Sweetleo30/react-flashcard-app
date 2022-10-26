@@ -13,7 +13,7 @@ export function FlashcardSlider() {
 
     // data, setData, isLoading, setLoading, isError, setError
 
-    const { data, isLoading, isError } = useContext(WordContext);
+    const { data, isLoading, setLoading, isError } = useContext(WordContext);
 
     // FlashcardSlider.defaultProps = {
     //     index: 0
@@ -72,5 +72,8 @@ export function FlashcardSlider() {
         </div>
     );
 }
+
+
+
 
 

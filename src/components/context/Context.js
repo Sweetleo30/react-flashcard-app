@@ -9,6 +9,11 @@ function WordContextProvider(props) {
     const [isError, setError] = useState(null);
 
     useEffect(() => {
+        getWords()
+    }, [])
+
+    const getWords = () => {
+        setLoading(true);
         fetch(`/api/words`)
             .then(response => {
                 if (response.ok) { //Проверяем что код ответа 200
@@ -22,12 +27,60 @@ function WordContextProvider(props) {
                 setLoading(false);
             })
 
-            .catch(error => { setError(error); setLoading(false) });
-    }, [])
+            .catch((error => setError(error)))
+            .finally(() => {
+                setLoading(false);
+            })
+    }
+
+    // const addWord = async () => {
+    //     // const id = uuidv4();
+    //     const word = word.value;
+    //     const transcription = transcription.value;
+    //     const translation = translation.value;
+    //     const tags = tags.value;
+
+    //     try {
+    //         const response = await fetch(`http://itgirlschool.justmakeit.ru/api/words/add`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 // id: id,
+    //                 english: word,
+    //                 transcription: transcription,
+    //                 russian: translation,
+    //                 tags: tags
+    //             })
+    //         });
+    //         if (response.ok) {
+    //             const newData = await response.json();
+    //             setData(newData);
+    //         }
+    //     } catch (error) {
+    //         alert(`Ошибка соединения с сервером. ${error}`);
+    //     } finally {
+    //         word.setValue('');
+    //         transcription.setValue('');
+    //         translation.setValue('');
+    //         tags.setValue('');
+    //     }
+    // }
+
+    // const addWord = (word) => {
+    //     fetch(`/api/words/add`,
+    //         {
+    //             method: 'POST',
+    //             body: JSON.stringify(word)
+    //         })
+    // }
+
+
 
 
     return (
-        <WordContext.Provider value={{ data, setData, isLoading, setLoading, isError, setError }}>
+        <WordContext.Provider value={{ data, setData, isLoading, setLoading, isError, setError, getWords }}>
             {props.children}
         </WordContext.Provider>
     );
@@ -37,23 +90,3 @@ export { WordContextProvider, WordContext };
 
 
 
-// useEffect(() => {
-//     fetch('https://localhost:5001/api/values', {
-//         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-//         mode: 'cors', // no-cors, *cors, same-origin
-//         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-//         credentials: 'same-origin', // include, *same-origin, omit
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         redirect: 'follow', // manual, *follow, error
-//         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-//         body: JSON.stringify({ id: '123', name : 'qweq' }) // body data type must match "Content-Type" header
-//       })
-//       .then(response => response.json())
-//       .then(data =>
-//         {
-//           setData(data.name);
-//           setId(data.id)
-//         })
-//   },[]);

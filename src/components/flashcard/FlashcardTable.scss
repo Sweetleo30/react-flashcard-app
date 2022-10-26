@@ -61,6 +61,11 @@ td {
     }
 }
 
+.bt-add {
+    @include button;
+    @include button-bg($bt-green);
+}
+
 .form-control {
     min-height: 30px;
     min-width: 60px;
