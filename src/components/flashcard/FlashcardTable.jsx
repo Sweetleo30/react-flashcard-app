@@ -1,8 +1,8 @@
 import { TableRow } from '../flashcard/TableRow';
-import { WordContext } from '../context/Context';
-import { useContext, useState } from 'react';
-import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
-import { Error } from '../error/Error';
+import { useState } from 'react';
+// import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
+// import { Error } from '../error/Error';
+import { observer, inject } from 'mobx-react';
 import './FlashcardTable.scss';
 
 import { useInput } from '../hooks/useInput';
@@ -10,22 +10,35 @@ import { useInput } from '../hooks/useInput';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from 'react';
 
-export function FlashcardTable() {
+function FlashcardTable({ words, addWord, isLoaded, loadData, deleteWord, updateWord }) {
 
-    const { data, setData, isLoading, isError, getWords } = useContext(WordContext);
-    const words = data;
+    // if (isLoaded) {
+    //     return;
+    // }
+
+    // const [newWord, setNewWord] = useState({});
+
     const word = useInput('', { isEmpty: true, minLength: 2 });
     const transcription = useInput('', { isEmpty: true, minLength: 3 });
     const translation = useInput('', { isEmpty: true, minLength: 2 });
-    const tags = useInput('');
+    // const tags = useInput('');
     const valid = (word.inputValid && transcription.inputValid && translation.inputValid)
     const [click, setClick] = useState(false);
 
     // Добавление нового слова в таблицу
     const addWordList = () => {
+        const newWord = {
+            english: word.value,
+            transcription: transcription.value,
+            russian: translation.value,
+        }
         setClick(!click);
-        addWord();
+        addWord(newWord);
+        word.value = '';
+        transcription.value = '';
+        translation.value = '';
     }
 
     // Кнопка добавления слова
@@ -33,61 +46,12 @@ export function FlashcardTable() {
         setClick(!click);
     }
 
-    // Добавление слова
-    const addWord = async () => {
-        // setLoading(true);
-        const newWord = word.value;
-        const newTranscription = transcription.value;
-        const newTranslation = translation.value;
-        const newTags = 'цвет';
-
-        try {
-            const response = await fetch(`/api/words/add`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    english: newWord,
-                    transcription: newTranscription,
-                    russian: newTranslation,
-                    tags: newTags,
-                })
-            });
-            if (response.ok) {
-                const newData = await response.json();
-                setData(newData);
-                getWords();
-            }
-        } catch (error) {
-            alert(`Ошибка соединения с сервером. ${error}`);
-        } finally {
-            word.setValue('');
-            transcription.setValue('');
-            translation.setValue('');
-            tags.setValue('');
-            // setLoading(false);
-        }
-    }
-
-    if (isLoading) {
-        return (
-            <LoadingIndicator />
-        )
-    }
-
-    if (isError) {
-        return (
-            <Error />
-        )
-    }
-
     return (
         <div className="flashcard-table__container">
             <table className="table">
                 <thead>
                     <tr>
-                        <th>№</th>
+                        {/* <th>№</th> */}
                         <th>Слово</th>
                         <th>Транскрипция</th>
                         <th>Перевод</th>
@@ -111,7 +75,9 @@ export function FlashcardTable() {
                                 word={word.english}
                                 transcription={word.transcription}
                                 translation={word.russian}
-                                isSelected={word.isSelected}>
+                                isSelected={word.isSelected}
+                                deleteWord={deleteWord}
+                                updateWord={updateWord}>
                             </TableRow>
                         )
                     }
@@ -124,7 +90,6 @@ export function FlashcardTable() {
     function AddWordInput() {
         return (
             <tr>
-                <td scope="row" name="id"></td>
                 <td>
                     {((word.isDirty && word.isEmpty) || (word.isDirty && word.minLengthError)) && <div className="has-error">{word.isError}</div>}
                     <input
@@ -162,8 +127,17 @@ export function FlashcardTable() {
         )
 
     }
-}
+};
 
+export default inject(({ wordsStore }) => {
+    const { words, addWord, isLoaded, loadData, deleteWord, updateWord } = wordsStore;
 
+    useEffect(() => {
+        loadData();
+    }, []);
 
+    return {
+        words, addWord, deleteWord, updateWord
+    };
 
+})(observer(FlashcardTable));

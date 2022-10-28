@@ -1,14 +1,11 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useInput } from '../hooks/useInput';
-import { WordContext } from '../context/Context';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function TableRow(props) {
-
-    const { data, setData, getWords } = useContext(WordContext);
 
     const word = useInput(props.word, { isEmpty: true, minLength: 2 });
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
@@ -22,82 +19,32 @@ export function TableRow(props) {
     }
 
     const handleEdit = () => {
+        const updWord = {
+            english: word.value,
+            transcription: transcription.value,
+            russian: translation.value,
+            tags: '',
+        }
         if (valid) {
-            updateWord();
+            props.updateWord(props.id, updWord);
             setEdited(!isEdited);
         }
     }
 
-    // Обновление слова
-    const updateWord = async (id) => {
-        const updWord = word.value;
-        const updTranscription = transcription.value;
-        const updTranslation = translation.value;
-        const updTags = '';
-
-        try {
-            const response = await fetch(`/api/words/${props.id}/update`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id: id,
-                    english: updWord,
-                    transcription: updTranscription,
-                    russian: updTranslation,
-                    tags: updTags
-                })
-            });
-            if (response.ok) {
-                let newData = [...data].map(item => {
-                    if (item.id === props.id) {
-                        item.english = updWord;
-                        item.transcription = updTranscription;
-                        item.russian = updTranslation;
-                        item.tags = updTags;
-                    }
-                    return item;
-                });
-                setData(newData);
-            }
-        } catch (error) {
-            alert(`Ошибка соединения с сервером. ${error}`);
-        };
-    }
-
     // Удаление слова
-    const deleteWord = async () => {
-
-        let isDelete = window.confirm("Удалить это слово?");
-        if (isDelete) {
-            try {
-                const response = await fetch(`/api/words/${props.id}/delete`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
-                if (response.ok) {
-                    let newData = data.filter(item => item.id !== props.id);
-                    setData(newData)
-                };
-            } catch (error) {
-                alert(`Ошибка соединения с сервером. ${error}`);
-            };
-        }
-
+    const handleDeleteClick = () => {
+        props.deleteWord(props.id);
     }
+
 
     // Отмена редактирования 
-    const cancel = () => {
-        getWords();
-        setEdited(!isEdited);
-    }
+    // const cancel = () => {
+    //     getWords();
+    //     setEdited(!isEdited);
+    // }
 
     return (
         <tr>
-            <td scope="row">{props.id}</td>
             <td>
                 {((word.isDirty && word.isEmpty) || (word.isDirty && word.minLengthError)) && <div className="has-error">{word.isError}</div>}
                 {isEdited ? <input
@@ -129,10 +76,13 @@ export function TableRow(props) {
                     name="translation" /> : translation.value}
             </td>
             <td>
+                {/* {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleEdit}>SAVE</button> : */}
                 {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleEdit}>SAVE</button> :
                     <button className="bt-edit" onClick={handleChange}><FontAwesomeIcon icon={faEdit} /></button>}
-                {isEdited ? <button disabled={!valid} className="bt-close" onClick={cancel}><FontAwesomeIcon icon={faXmark} /></button> :
-                    <button className="bt-delete" onClick={deleteWord}><FontAwesomeIcon icon={faTrashCan} /></button>}
+                {isEdited ? <button disabled={!valid} className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
+                    // {isEdited ? <button disabled={!valid} className="bt-close" onClick={cancel}><FontAwesomeIcon icon={faXmark} /></button> :
+                    // <button className="bt-delete" onClick={deleteWord}><FontAwesomeIcon icon={faTrashCan} /></button>}
+                    <button className="bt-delete" onClick={handleDeleteClick}><FontAwesomeIcon icon={faTrashCan} /></button>}
             </td>
         </tr>
     );
