@@ -6,18 +6,17 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function TableRow(props) {
-
     const word = useInput(props.word, { isEmpty: true, minLength: 2 });
     const transcription = useInput(props.transcription, { isEmpty: true, minLength: 3 });
     const translation = useInput(props.translation, { isEmpty: true, minLength: 2 });
     const [isEdited, setEdited] = useState(props.isEdited);
     const valid = (word.inputValid && transcription.inputValid && translation.inputValid)
 
-
     const handleChange = () => {
         setEdited(!isEdited);
     }
 
+    // Редактирование слова
     const handleEdit = () => {
         const updWord = {
             english: word.value,
@@ -36,13 +35,6 @@ export function TableRow(props) {
         props.deleteWord(props.id);
     }
 
-
-    // Отмена редактирования 
-    // const cancel = () => {
-    //     getWords();
-    //     setEdited(!isEdited);
-    // }
-
     return (
         <tr>
             <td>
@@ -53,7 +45,7 @@ export function TableRow(props) {
                     value={word.value}
                     type="text"
                     className={"form-control " + (!word.inputValid ? "form-control_error" : "")}
-                    name="word" /> : word.value}
+                    name="word" /> : props.word}
             </td>
             <td>
                 {((transcription.isDirty && transcription.isEmpty) || (transcription.isDirty && transcription.minLengthError)) && <div className="has-error">{transcription.isError}</div>}
@@ -63,7 +55,7 @@ export function TableRow(props) {
                     value={transcription.value}
                     type="text"
                     className={"form-control " + (!transcription.inputValid ? "form-control_error" : "")}
-                    name="transcription" /> : transcription.value}
+                    name="transcription" /> : props.transcription}
             </td>
             <td>
                 {((translation.isDirty && translation.isEmpty) || (translation.isDirty && translation.minLengthError)) && <div className="has-error">{translation.isError}</div>}
@@ -73,15 +65,12 @@ export function TableRow(props) {
                     value={translation.value}
                     type="text"
                     className={"form-control " + (!translation.inputValid ? "form-control_error" : "")}
-                    name="translation" /> : translation.value}
+                    name="translation" /> : props.translation}
             </td>
             <td>
-                {/* {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleEdit}>SAVE</button> : */}
                 {isEdited ? <button disabled={!valid} className="bt-save" onClick={handleEdit}>SAVE</button> :
                     <button className="bt-edit" onClick={handleChange}><FontAwesomeIcon icon={faEdit} /></button>}
-                {isEdited ? <button disabled={!valid} className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
-                    // {isEdited ? <button disabled={!valid} className="bt-close" onClick={cancel}><FontAwesomeIcon icon={faXmark} /></button> :
-                    // <button className="bt-delete" onClick={deleteWord}><FontAwesomeIcon icon={faTrashCan} /></button>}
+                {isEdited ? <button className="bt-close" onClick={handleChange}><FontAwesomeIcon icon={faXmark} /></button> :
                     <button className="bt-delete" onClick={handleDeleteClick}><FontAwesomeIcon icon={faTrashCan} /></button>}
             </td>
         </tr>

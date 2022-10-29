@@ -1,7 +1,7 @@
 import { TableRow } from '../flashcard/TableRow';
 import { useState } from 'react';
-// import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
-// import { Error } from '../error/Error';
+import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator';
+import { Error } from '../error/Error';
 import { observer, inject } from 'mobx-react';
 import './FlashcardTable.scss';
 
@@ -12,13 +12,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from 'react';
 
-function FlashcardTable({ words, addWord, isLoaded, loadData, deleteWord, updateWord }) {
-
-    // if (isLoaded) {
-    //     return;
-    // }
-
-    // const [newWord, setNewWord] = useState({});
+function FlashcardTable({ words, addWord, isLoaded, loadData, isLoading, serverError, deleteWord, updateWord }) {
 
     const word = useInput('', { isEmpty: true, minLength: 2 });
     const transcription = useInput('', { isEmpty: true, minLength: 3 });
@@ -46,12 +40,23 @@ function FlashcardTable({ words, addWord, isLoaded, loadData, deleteWord, update
         setClick(!click);
     }
 
+    if (isLoading) {
+        return (
+            <LoadingIndicator />
+        )
+    }
+
+    if (serverError) {
+        return (
+            <Error />
+        )
+    }
+
     return (
         <div className="flashcard-table__container">
             <table className="table">
                 <thead>
                     <tr>
-                        {/* <th>№</th> */}
                         <th>Слово</th>
                         <th>Транскрипция</th>
                         <th>Перевод</th>
@@ -130,14 +135,14 @@ function FlashcardTable({ words, addWord, isLoaded, loadData, deleteWord, update
 };
 
 export default inject(({ wordsStore }) => {
-    const { words, addWord, isLoaded, loadData, deleteWord, updateWord } = wordsStore;
+    const { words, addWord, isLoaded, isLoading, serverError, loadData, deleteWord, updateWord } = wordsStore;
 
     useEffect(() => {
         loadData();
     }, []);
 
     return {
-        words, addWord, deleteWord, updateWord
+        words, addWord, deleteWord, updateWord, isLoading, serverError
     };
 
 })(observer(FlashcardTable));

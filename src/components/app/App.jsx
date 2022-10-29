@@ -13,7 +13,7 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import { NoMatch } from '../noMatch/NoMatch';
 import FlashcardTable from '../flashcard/FlashcardTable';
-import { FlashcardSlider } from '../flashcard/FlashcardSlider';
+import FlashcardSlider from '../flashcard/FlashcardSlider';
 
 function App() {
     return (

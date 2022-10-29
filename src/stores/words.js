@@ -59,6 +59,7 @@ export default class Words {
 
     // Удаление слова
     deleteWord = (id) => {
+        this.isLoading = true;
         this.serverError = false;
 
         fetch(`/api/words/${id}/delete`, {
@@ -82,6 +83,7 @@ export default class Words {
     // Обновление слова
     updateWord = (id, word) => {
         this.isLoading = true;
+        this.serverError = false;
 
         fetch(`/api/words/${id}/update`, {
             method: 'POST',
