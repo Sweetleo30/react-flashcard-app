@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Flashcard } from './Flashcard';
+import Flashcard from './Flashcard';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -71,14 +71,14 @@ function FlashcardSlider({ words, isLoading, serverError }) {
 }
 
 export default inject(({ wordsStore }) => {
-    const { words, loadData, isLoading, serverError } = wordsStore;
+    const { words, loadData } = wordsStore;
 
     useEffect(() => {
         loadData();
     }, []);
 
     return {
-        words, isLoading, serverError
+        words
     };
 
 })(observer(FlashcardSlider));

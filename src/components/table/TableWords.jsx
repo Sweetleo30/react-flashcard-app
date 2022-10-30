@@ -16,7 +16,7 @@ function TableWords({ words, isLoading, serverError, deleteWord, updateWord }) {
         setClick(!click);
     }
 
-    if (isLoading && !click) {
+    if (isLoading) {
         return (
             <LoadingIndicator />
         )
@@ -73,14 +73,14 @@ function TableWords({ words, isLoading, serverError, deleteWord, updateWord }) {
 };
 
 export default inject(({ wordsStore }) => {
-    const { words, addWord, isLoading, serverError, loadData, deleteWord, updateWord } = wordsStore;
+    const { words, addWord, loadData, deleteWord, updateWord } = wordsStore;
 
     useEffect(() => {
         loadData();
     }, []);
 
     return {
-        words, addWord, deleteWord, updateWord, isLoading, serverError, loadData
+        words, addWord, deleteWord, updateWord
     };
 
 })(observer(TableWords));

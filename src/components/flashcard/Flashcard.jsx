@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
+import { observer, inject } from 'mobx-react';
 import './Flashcard.scss';
 
-export function Flashcard(props) {
+export function Flashcard({ key, word, transcription, translation, addNumber }) {
 
     const [isChecked, setChecked] = useState(false);
 
     const handleShow = () => {
         setChecked(!isChecked);
-        props.addNumber();
+        addNumber();
     }
 
     const mainRef = useRef(null);
@@ -17,14 +18,27 @@ export function Flashcard(props) {
 
     return (
         <div className="flashcard">
-            <span className="flashcard-word">{props.word}</span>
-            <span className="flashcard-transcription">{props.transcription}</span>
+            <span className="flashcard-word">{word}</span>
+            <span className="flashcard-transcription">{transcription}</span>
             <button disabled={isChecked} className={isChecked ? "translation-btn" : "flashcard-btn"} ref={mainRef} onClick={handleShow}>
-                {isChecked ? props.translation : "Проверить"}
+                {isChecked ? translation : "Проверить"}
             </button>
         </div >
     );
 }
+
+export default inject(({ wordsStore }) => {
+    const { words, loadData } = wordsStore;
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    return {
+        words
+    };
+
+})(observer(Flashcard));
 
 
 
