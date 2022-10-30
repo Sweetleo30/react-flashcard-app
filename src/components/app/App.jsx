@@ -12,7 +12,7 @@ import store from '../../stores/index';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import { NoMatch } from '../noMatch/NoMatch';
-import FlashcardTable from '../flashcard/FlashcardTable';
+import TableWords from '../table/TableWords';
 import FlashcardSlider from '../flashcard/FlashcardSlider';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
                     <main className="main">
                         <Routes>
                             <Route path="/game" element={<FlashcardSlider />}></Route>
-                            <Route path="/" element={<FlashcardTable />}></Route>
+                            <Route path="/" element={<TableWords />}></Route>
                             <Route path="*" element={<NoMatch />}></Route>
                         </Routes>
                     </main>

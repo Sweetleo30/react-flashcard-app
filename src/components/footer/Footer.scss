@@ -1,9 +1,38 @@
 @import '../../assets/styles/variables.scss';
 
-.footer__container {
-    @include flexbox-center;
-    height: 100px;
-    width: 100%;
-    text-align: center;
-    border: 3px solid #f8ab37;
+.footer {
+    &__container {
+        @include flexbox-center;
+        flex-direction: column;
+        height: 80px;
+        width: 100%;
+    }
+
+    &__link-social {
+        display: block;
+        width: 35px;
+        height: 35px;
+        border-radius: 100%;
+        font-size: 20px;
+        color: $bg-main;
+        background-color: $light-dark;
+        text-align: center;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $bt-orange;
+            color: $mainColor;
+        }
+
+        .fa-github {
+            margin-top: 7px;
+        }
+    }
+
+    &__copyright {
+        color: $light-dark;
+        margin: 20px 0;
+        font-size: 14px;
+    }
 }

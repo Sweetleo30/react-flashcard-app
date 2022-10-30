@@ -1,0 +1,117 @@
+@import '../../assets/styles/variables.scss';
+
+
+.flashcard-table__container {
+    @include flexbox-center;
+    padding: 130px 10px 40px 10px;
+    border-radius: 6px;
+}
+
+.table {
+    text-align: center;
+    padding: 30px 10px;
+    width: 100%;
+}
+
+th {
+    padding: 12px;
+    background-color: $bg-table-th;
+    border-radius: 8px;
+
+    &:last-child {
+        position: relative;
+    }
+}
+
+td {
+    padding: 6px 10px;
+    background-color: $bg-table-td;
+    border-radius: 8px;
+
+    &:last-child {
+        width: 170px;
+    }
+}
+
+.bt-save {
+    text-transform: uppercase;
+    @include button;
+    @include button-bg($bt-green);
+
+    &:disabled {
+        border: 2px solid $dark;
+        color: $dark;
+    }
+}
+
+.bt-edit {
+    @include button;
+    @include button-bg($bt-orange);
+}
+
+.bt-delete {
+    @include button;
+    @include button-bg($red);
+}
+
+.bt-close {
+    @include button;
+    @include button-bg($red);
+
+    &:disabled {
+        border: 2px solid $dark;
+        color: $dark;
+    }
+}
+
+.bt-add {
+    position: absolute;
+    top: 0px;
+    right: -40px;
+    display: inline-block;
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 2.7rem;
+    cursor: pointer;
+
+    @include button-bg($bt-green);
+}
+
+.form-control {
+    min-height: 30px;
+    min-width: 60px;
+    color: $mainColor;
+    background-color: #5854543b;
+    border-radius: 10px;
+    margin: 20px 0 10px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+
+    &:focus {
+        outline: none;
+        border: 1px solid $bt-green;
+        box-shadow: 0 0 10px $bt-green;
+    }
+}
+
+.has-error {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 14px;
+    text-align: center;
+    color: $red;
+}
+
+.form-control_error {
+    border: 1px solid $red;
+    box-shadow: 0 0 10px $red;
+
+    &:focus {
+        outline: none;
+        border: 1px solid $red;
+        box-shadow: 0 0 10px $red;
+    }
+}

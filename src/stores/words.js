@@ -1,5 +1,5 @@
 
-import { makeAutoObservable, runInaction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 export default class Words {
     words = [];
@@ -20,25 +20,25 @@ export default class Words {
         this.isLoading = true;
         this.serverError = false;
 
-        fetch(`/api/words`)
+        const result = await fetch(`/api/words`)
             .then(response => response.json())
-            .then(response => {
-                this.words = response;
-                this.isLoading = false;
-            })
             .catch(error => {
                 console.log(error);
                 this.isLoading = false;
                 this.serverError = true;
             });
+        runInAction(() => {
+            this.words = result;
+            this.isLoading = false;
+        })
     };
 
     // Добавление слова
-    addWord = (newWord) => {
+    addWord = async (newWord) => {
         this.isLoading = true;
         this.serverError = false;
 
-        fetch(`/api/words/add`, {
+        const result = await fetch(`/api/words/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -46,46 +46,48 @@ export default class Words {
             body: JSON.stringify(newWord),
         })
             .then(response => response.json())
-            .then(response => {
-                this.words.push(response);
-                this.isLoading = false;
-            })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
                 this.serverError = true;
                 this.isLoading = false;
             });
+
+        runInAction(() => {
+            this.words.push(result);
+            this.isLoading = false;
+        })
     };
 
     // Удаление слова
-    deleteWord = (id) => {
+    deleteWord = async (id) => {
         this.isLoading = true;
         this.serverError = false;
 
-        fetch(`/api/words/${id}/delete`, {
+        await fetch(`/api/words/${id}/delete`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
         })
             .then(response => response.json())
-            .then(word => {
-                this.words = this.words.filter(item => item.id !== id);
-                this.isLoading = false;
-            })
             .catch(error => {
                 console.log(error);
                 this.serverError = true;
                 this.isLoading = false;
             });
+
+        runInAction(() => {
+            this.words = this.words.filter(item => item.id !== id);
+            this.isLoading = false;
+        })
     };
 
     // Обновление слова
-    updateWord = (id, word) => {
+    updateWord = async (id, word) => {
         this.isLoading = true;
         this.serverError = false;
 
-        fetch(`/api/words/${id}/update`, {
+        await fetch(`/api/words/${id}/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -93,14 +95,15 @@ export default class Words {
             body: JSON.stringify(word),
         })
             .then(response => response.json())
-            .then(() => {
-                this.words = this.words.map(item => item.id === id ? word : item);
-                this.isLoading = false;
-            })
             .catch(error => {
                 console.log(error);
                 this.serverError = true;
                 this.isLoading = false;
             });
+
+        runInAction(() => {
+            this.words = this.words.map(item => item.id === id ? word : item);
+            this.isLoading = false;
+        })
     };
 }

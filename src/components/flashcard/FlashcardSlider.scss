@@ -3,14 +3,17 @@
 // слайдер
 
 .flashcard-slider {
+    min-height: 100vh;
     @include flexbox-center;
-    flex-direction: column;
-    margin-top: 200px
-}
 
+    &__container {
+        @include flexbox-center;
+        flex-direction: column;
+    }
 
-.flashcard-slider__main {
-    @include flexbox-center;
+    &__main {
+        @include flexbox-center;
+    }
 }
 
 .prev-btn,
