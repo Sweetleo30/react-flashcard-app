@@ -38,7 +38,7 @@ function FlashcardSlider({ words, isLoading, serverError }) {
         setNumber(number + 1);
     };
 
-    if (isLoading) {
+    if (isLoading || !words.length) {
         return (
             <LoadingIndicator />
         )
